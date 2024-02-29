@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.files import File
-
+import django_filters
+from django_filters import RangeFilter, NumberFilter,CharFilter
 from io import BytesIO
 from PIL import Image
 
@@ -55,3 +56,13 @@ class ProductProperty(models.Model):
 
     def __str__(self):
         return f'{self.property} {self.value}'
+
+class ProductFilter(django_filters.FilterSet):
+    price = RangeFilter()
+    diametr = NumberFilter()
+    height = NumberFilter()
+    width = NumberFilter()
+    manufacturer = CharFilter()
+    class Meta: 
+        model = Product
+        fields = ['price']
